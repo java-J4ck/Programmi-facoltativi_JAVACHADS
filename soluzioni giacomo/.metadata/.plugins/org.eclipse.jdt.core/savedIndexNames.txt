@@ -1,0 +1,3 @@
+INDEX VERSION 1.131+C:\Users\Giaco\Desktop\soluzioni giacomo\.metadata\.plugins\org.eclipse.jdt.core
+3589313209.index
+4004024946.index

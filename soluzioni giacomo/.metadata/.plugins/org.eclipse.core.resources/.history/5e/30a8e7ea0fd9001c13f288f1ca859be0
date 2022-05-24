@@ -1,0 +1,17 @@
+package operation;
+
+public class Operation implements Addendo{
+	private Addendo ad1;
+	private Addendo ad2;
+	
+	public Operation(Addendo ad1, Addendo ad2) {
+		this.ad1 = ad1;
+		this.ad2 = ad2;
+	}
+	
+	public double getResult() {
+		return ad1.getResult()+ad2.getResult();
+	}
+	
+
+}

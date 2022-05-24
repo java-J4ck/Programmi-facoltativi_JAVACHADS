@@ -1,0 +1,33 @@
+package parser;
+import operation.*;
+public class Parser {
+	
+	private static Addendo getAddendo(String toParse) {
+		Addendo ad;
+		if(toParse.length()==1) ad= new Numero(toParse);
+		else ad=buildTree(toParse);
+		return ad;
+		
+	}
+	
+	private static OperationType getOperationType(char symbol) {
+		for(OperationType operation : OperationType.values()) {
+			if (operation.getSymbol()==symbol) return operation;
+		}
+		return null;
+	}
+	
+	public static Operation buildTree(String expression) {
+		Operation operation=null;
+		String ad1_InString="",ad2_InString="";
+		for(int i=0;i< expression.length();i++) {
+			if(expression.charAt(i)=='+' || expression.charAt(i)=='-') {
+				ad1_InString=expression.substring(0, i);
+				ad2_InString=expression.substring(i+1, expression.length()-1);
+				operation= new Operation(getAddendo(ad1_InString),getAddendo(ad2_InString),getOperationType(expression.charAt(i)));
+			}
+		}
+		return operation;
+	}
+
+}

@@ -1,0 +1,109 @@
+package parser;
+import operation.*;
+public class Parser {
+	
+	private static Addendo getAddendo(String toParse) {
+		Addendo ad;
+		boolean isDouble=true;
+		try {
+			Double.parseDouble(toParse);
+		}
+		catch(NumberFormatException e) {
+			isDouble=false;
+		}
+		if(isDouble) ad= new Numero(toParse);
+		else ad=buildTree(toParse);
+		return ad;
+		
+	}
+	private static int findLastClosingParentheses(String string) {
+		int index=0;
+		for(int i=string.length()-1;i>=0;i--) {
+			if(string.charAt(i)== ')') {
+				index=i;
+				break;
+			}
+		}
+		return index;
+	}
+	private static OperationType getOperationType(char symbol) {
+		for(OperationType operation : OperationType.values()) {
+			if (operation.getSymbol()==symbol) return operation;
+		}
+		return null;
+	}
+	/*
+	public static Operation buildTree(String expression) {
+		Operation operation=null;
+		String ad1_InString="",ad2_InString="";
+		for(int i=0;i< expression.length();i++) {
+			if(expression.contains("+") || expression.contains("-")) {
+				if(expression.charAt(i)=='+' || expression.charAt(i)=='-') {
+					ad1_InString=expression.substring(0, i);
+					ad2_InString=expression.substring(i+1, expression.length());
+					operation= new Operation(getAddendo(ad1_InString),getAddendo(ad2_InString),getOperationType(expression.charAt(i)));
+				}
+			}
+			else {
+				if(expression.charAt(i)=='*' || expression.charAt(i)=='/') {
+					ad1_InString=expression.substring(0, i);
+					ad2_InString=expression.substring(i+1, expression.length());
+					operation= new Operation(getAddendo(ad1_InString),getAddendo(ad2_InString),getOperationType(expression.charAt(i)));
+				}
+				
+			}
+			
+		}
+		return operation;
+	}*/
+	/*
+	public static Operation buildTree(String expression) {
+		Operation operation=null;
+		String ad1_InString="",ad2_InString="";
+		for(int i=expression.length()-1;i>=0 ;i--) {
+			if(expression.contains("+") || expression.contains("-")) {
+				if(expression.charAt(i)=='+' || expression.charAt(i)=='-' ) {
+					ad1_InString=expression.substring(0, i);
+					ad2_InString=expression.substring(i+1);
+					operation= new Operation(getAddendo(ad1_InString),getAddendo(ad2_InString),getOperationType(expression.charAt(i)));
+					break;
+				}
+			}
+			else {
+				if(expression.charAt(i)=='*' || expression.charAt(i)=='/') {
+					ad1_InString=expression.substring(0, i);
+					ad2_InString=expression.substring(i+1);
+					operation= new Operation(getAddendo(ad1_InString),getAddendo(ad2_InString),getOperationType(expression.charAt(i)));
+					break;
+				}
+				
+			}
+			
+		}
+		return operation;
+	}*/
+	
+	public static Operation buildTree(String expression) {
+		Operation operation=null;
+		String ad1_InString="",ad2_InString="";
+		for(int i=expression.length()-1;i>=0 ;i--) {
+			if(expression.charAt(i)=='+' || expression.charAt(i)=='-' ) {
+				ad1_InString=expression.substring(0, i);
+				ad2_InString=expression.substring(i+1);
+				operation= new Operation(getAddendo(ad1_InString),getAddendo(ad2_InString),getOperationType(expression.charAt(i)));
+				break;
+			}
+		}
+		for(int i=expression.length()-1;i>=0 ;i--) {
+			if(expression.charAt(i)=='+' || expression.charAt(i)=='-' ) {
+				ad1_InString=expression.substring(0, i);
+				ad2_InString=expression.substring(i+1);
+				operation= new Operation(getAddendo(ad1_InString),getAddendo(ad2_InString),getOperationType(expression.charAt(i)));
+				break;
+			}
+		}
+
+		return operation;
+	}
+	
+}
